@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andrea Bertonasco — Revenue Ops</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #0e6e52;
+    --green-light: #e4f2ec;
+    --green-mid: #1a9e78;
+    --black: #0f0f0f;
+    --gray: #6b7280;
+    --gray-light: #f5f5f3;
+    --border: #e5e5e2;
+    --white: #ffffff;
+    --accent: #0e6e52;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--black);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--black);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-logo span {
+    background: var(--green);
+    color: white;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--black); }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  section:last-child { border-bottom: none; }
+
+  /* ── HERO ── */
+  #hero {
+    padding-top: 140px;
+    padding-bottom: 80px;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1.5px;
+    background: var(--green);
+  }
+
+  h1 {
+    font-size: clamp(32px, 5vw, 44px);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    color: var(--black);
+  }
+
+  h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--green);
+  }
+
+  .hero-body {
+    font-size: 17px;
+    color: var(--gray);
+    line-height: 1.75;
+    max-width: 560px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-body strong {
+    color: var(--black);
+    font-weight: 500;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 2.5rem;
+  }
+
+  .tag {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    color: var(--gray);
+    background: var(--white);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .tag.green {
+    border-color: var(--green);
+    color: var(--green);
+    background: var(--green-light);
+  }
+
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-primary {
+    background: var(--green);
+    color: white;
+  }
+
+  .btn-primary:hover { background: #0a5a42; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--black);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover { background: var(--gray-light); }
+
+  /* ── SECTION TITLES ── */
+  .section-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  h2 {
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+  }
+
+  /* ── STATS ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .stat {
+    background: var(--white);
+    padding: 1.5rem;
+  }
+
+  .stat-num {
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--black);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--gray);
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 2rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .exp-item:last-child { border-bottom: none; }
+
+  .exp-date {
+    font-size: 12px;
+    color: var(--gray);
+    font-family: 'DM Mono', monospace;
+    padding-top: 3px;
+  }
+
+  .exp-role {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .exp-company {
+    font-size: 13px;
+    color: var(--green);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .exp-desc {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.65;
+  }
+
+  /* ── PROJECTS ── */
+  .project-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .project-card:hover { border-color: var(--green); }
+
+  .project-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    gap: 1rem;
+  }
+
+  .project-name {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .project-type {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .type-ops { background: var(--green-light); color: var(--green); }
+  .type-build { background: #eef2ff; color: #4338ca; }
+  .type-data { background: #fef3c7; color: #92400e; }
+  .type-personal { background: #fce7f3; color: #9d174d; }
+
+  .project-desc {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .stack-tag {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--gray);
+    background: var(--gray-light);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  /* ── TOOLS GRID ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .tool-group {
+    padding: 1.25rem;
+    background: var(--gray-light);
+    border-radius: 8px;
+  }
+
+  .tool-group-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 0.75rem;
+  }
+
+  .tool-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tool-pill {
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    padding: 4px 10px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--black);
+  }
+
+  /* ── PERCHE JET HR ── */
+  .manifesto {
+    border-left: 3px solid var(--green);
+    padding: 1.5rem 1.75rem;
+    background: var(--green-light);
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 2rem;
+  }
+
+  .manifesto p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: #1a3d2e;
+  }
+
+  .manifesto p + p {
+    margin-top: 1rem;
+  }
+
+  /* ── PERSONAL ── */
+  .personal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .personal-card {
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .personal-icon {
+    font-size: 18px;
+    margin-bottom: 0.5rem;
+  }
+
+  .personal-title {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .personal-desc {
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.55;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 3rem 0;
+    text-align: center;
+  }
+
+  footer p {
+    font-size: 13px;
+    color: var(--gray);
+    margin-bottom: 0.5rem;
+  }
+
+  footer a {
+    color: var(--green);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 2rem 0;
+  }
+
+  /* ── INLINE HIGHLIGHT ── */
+  .hl {
+    background: var(--green-light);
+    color: var(--green);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.9em;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 600px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .exp-item { grid-template-columns: 1fr; gap: 0.25rem; }
+    .tools-grid { grid-template-columns: 1fr; }
+    .personal-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    .container { padding: 0 1.25rem; }
+  }
+
+  /* ── ANIMATION ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .fade-up:nth-child(1) { animation-delay: 0.05s; }
+  .fade-up:nth-child(2) { animation-delay: 0.12s; }
+  .fade-up:nth-child(3) { animation-delay: 0.19s; }
+  .fade-up:nth-child(4) { animation-delay: 0.26s; }
+  .fade-up:nth-child(5) { animation-delay: 0.33s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    Andrea Bertonasco
+    <span>candidatura Jet HR</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#esperienza">Esperienza</a></li>
+    <li><a href="#progetti">Progetti</a></li>
+    <li><a href="#tools">Stack</a></li>
+    <li><a href="#perche">Perché Jet HR</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="eyebrow fade-up">Revenue Ops · Jet HR</div>
+    <h1 class="fade-up">
+      Ho venduto per 3 anni.<br>
+      Poi ho capito che il problema<br>
+      <em>erano i dati.</em>
+    </h1>
+    <p class="hero-body fade-up">
+      Non avevo un CRM. Li ho trovati su Excel.
+      <strong>Ho introdotto io il CRM, da zero, senza che nessuno me lo chiedesse.</strong>
+      Quello stesso istinto — vedere dove un processo perde efficienza e costruire qualcosa che lo risolva — è quello che porto in Revenue Ops.
+    </p>
+    <div class="tags fade-up">
+      <span class="tag green">HubSpot</span>
+      <span class="tag green">n8n</span>
+      <span class="tag green">Revenue Ops</span>
+      <span class="tag">Sales B2B · 3 anni</span>
+      <span class="tag">Python</span>
+      <span class="tag">Next.js</span>
+      <span class="tag">AI automation</span>
+    </div>
+    <div class="cta-row fade-up">
+      <a href="mailto:andrea@example.com" class="btn btn-primary">Scrivimi →</a>
+      <a href="https://linkedin.com/in/bertonascoandrea" target="_blank" class="btn btn-secondary">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding: 48px 0;">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">anni in sales B2B</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">1→</div>
+        <div class="stat-label">CRM integrato da zero</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">progetti reali</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">automazioni attive</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ESPERIENZA -->
+<section id="esperienza">
+  <div class="container">
+    <div class="section-title">Esperienza</div>
+
+    <div class="exp-item">
+      <div class="exp-date">feb 2026<br>in corso</div>
+      <div>
+        <div class="exp-role">Master Digital Marketing & AI</div>
+        <div class="exp-company">Talent Garden Milano</div>
+        <div class="exp-desc">
+          Performance marketing, paid media, data analytics, KPI monitoring, AI applicata al marketing.
+          Progetti reali con brand come Disneyland Paris, Leroy Merlin e Oway.
+          Full time — costruisco, non ascolto.
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">set 2023<br>feb 2026</div>
+      <div>
+        <div class="exp-role">Sales B2B</div>
+        <div class="exp-company">Pressoil Srl</div>
+        <div class="exp-desc">
+          Gestione autonoma del ciclo di vendita 360° — dalla prospecting alla chiusura.
+          Organizzazione completa di fiere commerciali da zero.
+          <strong style="color: var(--black);">Introdotto e configurato il CRM aziendale in autonomia</strong> —
+          pipeline, proprietà custom, tracciamento follow-up. Nessuno me lo aveva chiesto.
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">2021<br>2023</div>
+      <div>
+        <div class="exp-role">Tecnico Superiore – Marketing e Internazionalizzazione</div>
+        <div class="exp-company">ITS Piemonte</div>
+        <div class="exp-desc">
+          Percorso con forte orientamento commerciale e internazionale.
+          Base tecnica su marketing, vendita e processi aziendali.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROGETTI -->
+<section id="progetti">
+  <div class="container">
+    <div class="section-title">Progetti</div>
+
+    <!-- Marketer Match -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-name">Marketer Match</div>
+        <span class="project-type type-build">Full-stack app</span>
+      </div>
+      <div class="project-desc">
+        Web app completa costruita per Talent Garden: quiz attitudinale che mappa 19 studenti su 6 archetipi di marketing, algoritmo di matching per generare team bilanciati, dashboard admin con drag-and-drop e real-time tracking.
+        Integrazione AI (Gemini) per testi motivazionali per ogni team.
+        Deployata su Vercel, autenticazione via Supabase, DB PostgreSQL.
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Next.js 14</span>
+        <span class="stack-tag">TypeScript</span>
+        <span class="stack-tag">Supabase</span>
+        <span class="stack-tag">Tailwind</span>
+        <span class="stack-tag">Vercel</span>
+        <span class="stack-tag">GitHub</span>
+        <span class="stack-tag">Gemini API</span>
+      </div>
+    </div>
+
+    <!-- WeRoad Audit Tool -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-name">WeRoad Technical Audit Tool</div>
+        <span class="project-type type-data">Python · Data</span>
+      </div>
+      <div class="project-desc">
+        Tool Python in 4 file per audit SEO/tecnico automatizzato su weroad.it.
+        Playwright con intercettazione XHR/fetch su SPA React, parsing sitemap, monitoring performance,
+        analisi anomalie prezzi e metadati duplicati. Report HTML standalone con severity coding.
+        Quello che farebbe 2 ore di lavoro manuale: 3 minuti.
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Playwright</span>
+        <span class="stack-tag">SQLite</span>
+        <span class="stack-tag">BeautifulSoup</span>
+        <span class="stack-tag">HTML report</span>
+        <span class="stack-tag">SEO audit</span>
+      </div>
+    </div>
+
+    <!-- Oway -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-name">Oway — Lead Generation Campaign</div>
+        <span class="project-type type-ops">Marketing ops</span>
+      </div>
+      <div class="project-desc">
+        Campagna completa per portare nuovi hair salon a adottare il brand premium Oway.
+        Strategia full-funnel: evento "Oway Prima Vera" nella fattoria biodinamica a Bologna,
+        landing page dedicata, sequenza email nurturing, contenuti social.
+        Progetto Talent Garden con mentor Francesco Car.
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Lead generation</span>
+        <span class="stack-tag">Email marketing</span>
+        <span class="stack-tag">Landing page</span>
+        <span class="stack-tag">Social media</span>
+        <span class="stack-tag">Event marketing</span>
+      </div>
+    </div>
+
+    <!-- Leroy Merlin -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-name">Leroy Merlin — Organic Campaign Summer</div>
+        <span class="project-type type-data">Analytics · Strategy</span>
+      </div>
+      <div class="project-desc">
+        Simulazione customer journey su 3 SKU estivi (BBQ Phoenix, Gazebo YSIS, Ombrellone Sonora).
+        Modello dati con bacino da 8.4M utenti, benchmark KPI reali (ATC 3.13%, CR 0.31%),
+        scenario PRIMA/DOPO con parametri funnel calcolati a ritroso dallo smaltimento stock.
+        Multicanale: Facebook, Instagram, TikTok, newsletter, community.
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Data modeling</span>
+        <span class="stack-tag">Customer journey</span>
+        <span class="stack-tag">Organic multi-channel</span>
+        <span class="stack-tag">KPI forecasting</span>
+        <span class="stack-tag">Excel / Sheets</span>
+      </div>
+    </div>
+
+    <!-- NaaS / Open Claw -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-name">Home Server NaaS — Mac Mini + Open Claw</div>
+        <span class="project-type type-personal">Infra · AI personale</span>
+      </div>
+      <div class="project-desc">
+        Mac Mini usato ricondizionato come server personale. Open Claw per far girare modelli AI in locale (NaaS — Node as a Service).
+        Integrato con automazioni Claude + n8n per workflow quotidiani: digest, notifiche, task management, pipeline personali.
+        Costruito perché la dependency da servizi cloud ha un costo — e perché capire come funziona l'infrastruttura è utile quanto saperla usare.
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Mac Mini</span>
+        <span class="stack-tag">Open Claw</span>
+        <span class="stack-tag">n8n</span>
+        <span class="stack-tag">Claude API</span>
+        <span class="stack-tag">NaaS</span>
+        <span class="stack-tag">self-hosted</span>
+      </div>
+    </div>
+
+    <!-- Fitness App -->
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-name">Fitness Tracker — Strava + Garmin API</div>
+        <span class="project-type type-personal">App personale</span>
+      </div>
+      <div class="project-desc">
+        App personale per monitorare piani di allenamento e log esercizi, collegata a Strava.
+        Integrazione API Garmin per sincronizzare dati biometrici (HR, VO2max, recovery).
+        Costruita per risolvere un problema reale — le app esistenti non danno la visibilità che voglio sui miei dati.
+      </div>
+      <div class="project-stack">
+        <span class="stack-tag">Strava API</span>
+        <span class="stack-tag">Garmin API</span>
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">training data</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="container">
+    <div class="section-title">Stack</div>
+    <div class="tools-grid">
+      <div class="tool-group">
+        <div class="tool-group-title">CRM & Ops</div>
+        <div class="tool-list">
+          <span class="tool-pill">HubSpot</span>
+          <span class="tool-pill">Salesforce</span>
+          <span class="tool-pill">pipeline mgmt</span>
+          <span class="tool-pill">workflow</span>
+        </div>
+      </div>
+      <div class="tool-group">
+        <div class="tool-group-title">Automazione & AI</div>
+        <div class="tool-list">
+          <span class="tool-pill">n8n</span>
+          <span class="tool-pill">Claude API</span>
+          <span class="tool-pill">Open Claw</span>
+          <span class="tool-pill">Zapier</span>
+        </div>
+      </div>
+      <div class="tool-group">
+        <div class="tool-group-title">Data & Analytics</div>
+        <div class="tool-list">
+          <span class="tool-pill">GA4</span>
+          <span class="tool-pill">Looker Studio</span>
+          <span class="tool-pill">Excel / Sheets</span>
+          <span class="tool-pill">SQL base</span>
+        </div>
+      </div>
+      <div class="tool-group">
+        <div class="tool-group-title">Dev & Build</div>
+        <div class="tool-list">
+          <span class="tool-pill">Python</span>
+          <span class="tool-pill">Next.js</span>
+          <span class="tool-pill">Supabase</span>
+          <span class="tool-pill">GitHub</span>
+          <span class="tool-pill">Vercel</span>
+        </div>
+      </div>
+      <div class="tool-group">
+        <div class="tool-group-title">Advertising</div>
+        <div class="tool-list">
+          <span class="tool-pill">Meta Ads</span>
+          <span class="tool-pill">Google Ads</span>
+          <span class="tool-pill">TikTok Ads</span>
+        </div>
+      </div>
+      <div class="tool-group">
+        <div class="tool-group-title">Produttività</div>
+        <div class="tool-list">
+          <span class="tool-pill">Microsoft Office</span>
+          <span class="tool-pill">Google Workspace</span>
+          <span class="tool-pill">Figma</span>
+          <span class="tool-pill">Notion</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERCHE JET HR -->
+<section id="perche">
+  <div class="container">
+    <div class="section-title">Perché Jet HR</div>
+
+    <div class="manifesto">
+      <p>
+        Jet HR vende la stessa cosa che mi ha fatto introdurre un CRM in Pressoil senza che nessuno me lo chiedesse:
+        <strong>meno burocrazia, più controllo, processi che funzionano.</strong>
+        Ha senso che chi lavora nel motore commerciale di un'azienda del genere capisca quella filosofia dall'interno.
+      </p>
+      <p>
+        Il ruolo Revenue Ops non è supporto — è infrastruttura.
+        I dati di sales che gestirò determineranno come il team commerciale prende decisioni.
+        Questa responsabilità non mi spaventa: è esattamente il tipo di lavoro in cui sono preciso per natura, non per obbligo.
+      </p>
+    </div>
+
+    <p style="font-size: 14px; color: var(--gray); line-height: 1.75;">
+      Questo sito è stato costruito in autonomia come parte della candidatura —
+      non perché me lo abbiate chiesto, ma perché <span class="hl">dimostrare vale più che descrivere.</span>
+      Stack: HTML puro, zero template, deploy su GitHub Pages.
+    </p>
+  </div>
+</section>
+
+<!-- PERSONAL -->
+<section id="personal">
+  <div class="container">
+    <div class="section-title">Fuori dall'ufficio</div>
+    <div class="personal-grid">
+      <div class="personal-card">
+        <div class="personal-icon">🏃</div>
+        <div class="personal-title">Running & training data</div>
+        <div class="personal-desc">
+          Costruisco tool per analizzare i miei dati di allenamento. Strava + Garmin API.
+          Non mi basta guardare i numeri — voglio capire i pattern.
+        </div>
+      </div>
+      <div class="personal-card">
+        <div class="personal-icon">🤖</div>
+        <div class="personal-title">AI applicata, non teorica</div>
+        <div class="personal-desc">
+          Server AI locale, automazioni quotidiane con n8n, workflow Claude.
+          Mi interessa capire come funziona prima di usarla come shortcut.
+        </div>
+      </div>
+      <div class="personal-card">
+        <div class="personal-icon">🔧</div>
+        <div class="personal-title">Build-first mindset</div>
+        <div class="personal-desc">
+          Se qualcosa mi dà fastidio, lo automatizzo o lo ricostruisco.
+          Dal CRM al server di casa: se esiste un problema, esiste una soluzione.
+        </div>
+      </div>
+      <div class="personal-card">
+        <div class="personal-icon">📍</div>
+        <div class="personal-title">Torino → Milano</div>
+        <div class="personal-desc">
+          Basato a Torino, master a Milano. Trasferimento in programma nel 2026.
+          Presenza a Milano non è un problema — è già la mia routine.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p><strong>Andrea Bertonasco</strong></p>
+    <p>
+      <a href="mailto:andrea@example.com">andrea@example.com</a>
+      &nbsp;·&nbsp;
+      <a href="https://linkedin.com/in/bertonascoandrea" target="_blank">LinkedIn</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/bertonascoandrea-blip" target="_blank">GitHub</a>
+    </p>
+    <p style="margin-top: 1.5rem; font-size: 12px; color: #aaa;">
+      Candidatura Revenue Ops · Jet HR · Costruito con HTML, zero template, GitHub Pages
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
