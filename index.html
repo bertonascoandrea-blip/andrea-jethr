@@ -406,6 +406,143 @@
   /* ── LOADER ── */
   #loader * { box-sizing: border-box; }
 
+  /* ── NAV CONTATTAMI ── */
+  .nav-contatti {
+    background: var(--lime) !important;
+    color: var(--black) !important;
+    padding: 4px 14px !important;
+    border-radius: 20px;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    transition: transform 200ms ease, box-shadow 200ms ease !important;
+  }
+  .nav-contatti:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(212,232,74,0.4) !important;
+  }
+
+  /* ── SEZIONE CONTATTI ── */
+  #contatti { background: var(--bg-white); }
+
+  .contatti-intro {
+    margin-bottom: 48px;
+  }
+  .contatti-title {
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--black);
+    margin-bottom: 12px;
+  }
+  .contatti-sub {
+    font-size: 15px;
+    color: var(--gray);
+    line-height: 1.65;
+    max-width: 480px;
+  }
+
+  .contatti-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+
+  .contatti-card {
+    display: block;
+    text-decoration: none;
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 20px;
+    transition: border-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  }
+  .contatti-card:hover {
+    border-color: var(--black);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .contatti-card-icon {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .contatti-card-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 4px;
+  }
+  .contatti-card-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--black);
+    font-family: 'DM Mono', monospace;
+    word-break: break-all;
+  }
+
+  .contatti-cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* ── FLOATING POPUP ── */
+  #contattami-float {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--black);
+    color: white;
+    border-radius: 50px;
+    padding: 14px 20px 14px 24px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    opacity: 0;
+    transform: translateY(12px);
+    animation: floatIn 0.5s cubic-bezier(0.16,1,0.3,1) 6.4s forwards;
+    pointer-events: none;
+  }
+  #contattami-float.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  @keyframes floatIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  #contattami-float.hidden { display: none; }
+
+  #contattami-text {
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  #contattami-text:hover { text-decoration: underline; }
+
+  #contattami-close {
+    width: 24px; height: 24px;
+    background: rgba(255,255,255,0.12);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 150ms ease;
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1;
+    padding: 0;
+  }
+  #contattami-close:hover { background: rgba(255,255,255,0.25); }
+
   @media (max-width: 768px) {
     body { cursor: auto; }
     #cursor { display: none !important; }
@@ -418,8 +555,10 @@
     .exp-item { grid-template-columns: 1fr; gap: 4px; }
     .tools-grid { grid-template-columns: 1fr; }
     .personal-grid { grid-template-columns: 1fr; }
+    .contatti-grid { grid-template-columns: 1fr; }
     .nav-badge { display: none; }
     .exp-timeline-wrapper { display: none; }
+    #contattami-float { bottom: 20px; right: 16px; }
   }
 </style>
 </head>
@@ -502,6 +641,7 @@
     <li><a href="#esperienza">Esperienza</a></li>
     <li><a href="#progetti">Progetti</a></li>
     <li><a href="#tools">Stack</a></li>
+    <li><a href="#contatti" class="nav-contatti">Contattami</a></li>
   </ul>
   <a href="mailto:bertonascoandrea@gmail.com" class="nav-cta">Scrivimi</a>
 </nav>
@@ -780,24 +920,55 @@
   </div>
 </section>
 
+<!-- CONTATTI -->
+<section id="contatti">
+  <div class="container">
+    <div class="section-label">Contatti</div>
+
+    <div class="contatti-intro">
+      <p class="contatti-title">Parliamo.</p>
+      <p class="contatti-sub">Sono disponibile per opportunità di lavoro, collaborazioni e conversazioni su Revenue Ops, AI e automazione. Scrivimi direttamente o connettiti su LinkedIn.</p>
+    </div>
+
+    <div class="contatti-grid">
+      <a href="mailto:bertonascoandrea@gmail.com" class="contatti-card">
+        <div class="contatti-card-icon">✉</div>
+        <div class="contatti-card-label">Email</div>
+        <div class="contatti-card-value">bertonascoandrea@gmail.com</div>
+      </a>
+      <a href="https://linkedin.com/in/andrea-bertonasco" target="_blank" class="contatti-card">
+        <div class="contatti-card-icon">in</div>
+        <div class="contatti-card-label">LinkedIn</div>
+        <div class="contatti-card-value">andrea-bertonasco</div>
+      </a>
+      <a href="https://github.com/bertonascoandrea-blip" target="_blank" class="contatti-card">
+        <div class="contatti-card-icon">⌥</div>
+        <div class="contatti-card-label">GitHub</div>
+        <div class="contatti-card-value">bertonascoandrea-blip</div>
+      </a>
+    </div>
+
+    <div class="contatti-cta-row">
+      <a href="mailto:bertonascoandrea@gmail.com" class="btn btn-primary">Scrivimi →</a>
+      <a href="https://linkedin.com/in/andrea-bertonasco" target="_blank" class="btn btn-secondary">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="container">
-    <p><strong>Andrea Bertonasco</strong></p>
-    <p>
-      <a href="mailto:bertonascoandrea@gmail.com">bertonascoandrea@gmail.com</a>
-      &nbsp;·&nbsp;
-      <a href="https://linkedin.com/in/andrea-bertonasco" target="_blank">LinkedIn</a>
-      &nbsp;·&nbsp;
-      <a href="https://github.com/bertonascoandrea-blip" target="_blank">GitHub</a>
-      &nbsp;·&nbsp;
-      <a href="https://andrea-jethr.vercel.app" target="_blank">andrea-jethr.vercel.app</a>
-    </p>
-    <p style="margin-top: 24px; font-size: 12px; color: #aaa;">
-      Costruito in autonomia. HTML puro, zero template, GitHub Pages + Vercel.
+    <p style="font-size: 12px; color: #aaa;">
+      Andrea Bertonasco · Costruito in autonomia. HTML puro, zero template, Vercel.
     </p>
   </div>
 </footer>
+
+<!-- FLOATING CONTATTAMI -->
+<div id="contattami-float">
+  <span id="contattami-text">Contattami</span>
+  <button id="contattami-close" aria-label="Chiudi">✕</button>
+</div>
 
 <script>
 (function() {
@@ -1129,6 +1300,34 @@ document.addEventListener('DOMContentLoaded', function () {
   );
 
   ScrollTrigger.refresh();
+
+  /* ── FLOATING CONTATTAMI ── */
+  var floatEl   = document.getElementById('contattami-float');
+  var floatText = document.getElementById('contattami-text');
+  var floatClose = document.getElementById('contattami-close');
+  var contatti  = document.getElementById('contatti');
+
+  // Diventa interattivo dopo che la CSS animation lo porta a opacity:1
+  setTimeout(function() {
+    floatEl.classList.add('visible');
+  }, 6500);
+
+  floatText.addEventListener('click', function() {
+    contatti.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  floatClose.addEventListener('click', function() {
+    floatEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    floatEl.style.opacity = '0';
+    floatEl.style.transform = 'translateY(12px)';
+    setTimeout(function() { floatEl.classList.add('hidden'); }, 320);
+  });
+
+  // Cursor hover su floating
+  if (isDesktop && cursor) {
+    floatEl.addEventListener('mouseenter', function() { cursor.classList.add('hover-link'); });
+    floatEl.addEventListener('mouseleave', function() { cursor.classList.remove('hover-link'); });
+  }
 });
 </script>
 </body>
